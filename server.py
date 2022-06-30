@@ -18,6 +18,29 @@ def process_start(s_sock):
   s_sock.send(data.encode(FORMAT))
   print('Customer making an order')
 
+  while True:
+
+        input = s_sock.recv(SIZE)              
+        data = input.decode(FORMAT)
+        
+        try:
+            menu, num  = data.split(":")
+            opt = str(menu)
+            qty = int(num)
+            prc = float(0)
+
+                s_sock.send(data.encode(FORMAT))  
+
+            if opt[0] == '1':
+                text_file = open("order.txt", "r") 
+                data = text_file.read()
+                text_file.close()
+
+                s_sock.send(data.encode(FORMAT))
+         except:
+                print ('Hello kitchen, get ready to serve!')  
+                break
+
 if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(('',8888))
@@ -38,3 +61,4 @@ if __name__ == '__main__':
         sys.exit(1)
     finally:
      	s.close()
+

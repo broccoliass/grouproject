@@ -19,4 +19,19 @@ print (greet.decode(FORMAT))
 menu = cSocket.recv(SIZE)
 print(menu.decode(FORMAT))
 
+while True:
+
+    opt = input("\nSelect Your Menu [Code Menu]\nEnter [1] to view menu\nEnter [2] to view list order\nEnter [3] to exit\n> ")
+
+    if opt == '1':
+        qty = '0'
+        Input = opt + ":" + qty
+        cSocket.send(str.encode(Input))
+        Response = cSocket.recv(SIZE)
+        print('\nLIST ORDER)
+        print(Response.decode(FORMAT))
+    elif opt == '2':
+   	break
+
+
 
