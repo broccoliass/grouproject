@@ -13,4 +13,10 @@ try:
 except socket.error as e:
         print(str(e))
 
+greet = cSocket.recv(SIZE)
+print (greet.decode(FORMAT))
+
+menu = cSocket.recv(SIZE)
+print(menu.decode(FORMAT))
+
 

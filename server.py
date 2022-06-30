@@ -4,6 +4,20 @@ from multiprocessing import Process
 FORMAT = 'utf-8'
 SIZE = 2048
 
+def process_start(s_sock):
+
+  s_sock.send(str.encode('\n\t\t\tWELCOME TO MAID CAFE\t\t\t\n'))
+
+  text_file = open("menu.txt", "r")
+  data = text_file.read()
+  text_file.close()
+
+  num = s_sock.recv(SIZE)
+  tab = num.decode(FORMAT)
+
+  s_sock.send(data.encode(FORMAT))
+  print('Customer making an order')
+
 if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(('',8888))
