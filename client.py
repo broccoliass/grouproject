@@ -29,14 +29,16 @@ while True:
 
     if opt == '1':
         qty = '0'
+
+    if opt == '2':
+        qty = '0'
         Input = opt + ":" + qty
         cSocket.send(str.encode(Input))
         Response = cSocket.recv(SIZE)
-        print('\nLIST ORDER)
+        print('\nLIST ORDER FOR TABLE ' + tab)
         print(Response.decode(FORMAT))
 
-
-    elif opt == '2':
+    elif opt == '3':
         qty = '0'
         cSocket.send(str.encode(Input))
         Response = cScoket.recv(SIZE)
