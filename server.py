@@ -56,7 +56,93 @@ def process_start(s_sock):
                 print('\nORDER RECEIVED FOR TABLE ' + tab)
                 print(data)
                 os.remove("order.txt")
+            else:
+                if opt[0]  == 'A':
+                    opt = 'Nasi Lemak Kukus'
+                    prc = 5.3
+                    ans = qty * (prc)
+                elif opt[0] == 'B':
+                    opt = 'Soto'
+                    prc = 6
+                    ans = qty * (prc)
+                elif opt[0] == 'C':
+                    opt = 'Sizzling'
+                    prc = 7
+                    ans = qty * (prc)
+                elif opt[0] == 'D':
+                    opt = 'Nasi Kerabu'
+                    prc = 6
+                    ans = qty * (prc)
+                elif opt[0] == 'E':
+                    opt = 'Nasi Goreng'
+                    prc = 5
+                    ans = qty * (prc)
+                elif opt[0] == 'F':
+                    opt = 'Mi Goreng'
+                    prc = 3
+                    ans = qty * (prc)
+                elif opt[0] == 'G':
+                    opt = 'Bakso'
+                    prc = 3.50
+                    ans = qty * (prc)
+                elif opt[0] == 'H':
+                    opt = 'Lontong'
+                    prc = 3.80
+                    ans = qty * (prc)
+                elif opt[0] == 'I':
+                    opt = 'Western Mixed Platter'
+                    prc = 7.80
+                    ans = qty * (prc)
+                elif opt[0] == 'J':
+                    opt = 'BBQ Chicken Wrap'
+                    prc = 6.70
+                    ans = qty * (prc)
+                elif opt[0] == 'K':
+                    opt = 'Fish n Chip'
+                    prc = 7
+                    ans = qty * (prc)
+                elif opt[0] == 'L':
+                    opt = 'Roti Canai'
+                    prc = 5
+                    ans = qty * (prc)
+                elif opt[0] == 'M':
+                    opt = 'White Coffee'
+                    prc = 5
+                    ans = qty * (prc)
+                elif opt[0] == 'N':
+                    opt = 'Chocolate'#
+                    prc = 4
+                    ans = qty * (prc)
+                elif opt[0] == 'O':
+                    opt = 'Double Enriched Chocolate'
+                    prc = 6.30
+                    ans = qty * (prc)
+                elif opt[0] == 'P':
+                    opt = 'White Coffee Hazelnut Freezy'
+                    prc = 5.80
+                    ans = qty * (prc)
+                elif opt[0] == 'Q':
+                    opt = 'Milo'
+                    prc = 3.20
+                    ans = qty * (prc)
+                elif opt[0] == 'R':
+                    opt = 'Mineral Water'
+                    prc = 1.20
+                    ans = qty * (prc)
+                elif opt[0] == 'S':
+                    opt = 'Signature Ice Cream'
+                    prc = 4
+                    ans = qty * (prc)
+                elif opt[0] == 'T':
+                    opt = 'Ice Kacang'
+                    prc = 4.70
+                    ans = qty * (prc)
+                else:
+                    sendtoCli = ('Sorry, the code is not available in the menu')
 
+                sendtoCli = (str(opt)+ '.... RM'+ str(prc)+ ' ['+ str(qty) + ']: RM' + str(ans))
+                print(sendtoCli)
+ 
          except:
              print ('Hello kitchen, get ready to serve!')  
              break

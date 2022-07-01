@@ -44,6 +44,15 @@ while True:
         Response = cScoket.recv(SIZE)
         print(Response.decode(FORMAT))
         break
+    else:
+        qty = input("Quantity: ")
+        opt = opt.upper()
+
+    Input = opt + ":" + qty
+    cSocket.send(str.encode(Input))
+    Response = cSocket.recv(SIZE)
+    print(Response.decode(FORMAT))
+
 
 cSocket.close()
 
