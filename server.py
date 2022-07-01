@@ -1,6 +1,7 @@
 import socket
-from multiprocessing import Process
 import sys
+import os
+from multiprocessing import Process
 
 FORMAT = 'utf-8'
 SIZE = 2048
@@ -31,19 +32,30 @@ def process_start(s_sock):
             prc = float(0)
 
             if opt[0] == '1':
+                text_file = open("menu.txt", "r")
+                data = text_file.read()
+                text_file.close()
+                
+                s_sock.send(data.encode(FORMAT)) 
+
+            elif opt[0] == '2':
                 text_file = open("order.txt", "r") 
                 data = text_file.read()
                 text_file.close()
+              
+                s_sock.send(data.encode(FORMAT))
 
-            elif opt[0] == '2':
+            elif opt[0] == '3':
                 bye = '\nYour order has been sent to the kitchen and ready to serve..\nThank you for your order :)\n'
                 s_sock.send(bye.encode(FORMAT))
+
                 text_file = open("order.txt", "r")
                 data = text_file.read()
                 text_file.close()
-                print(data)
 
-                s_sock.send(data.encode(FORMAT))
+                print('\nORDER RECEIVED FOR TABLE ' + tab)
+                print(data)
+                os.remove("order.txt")
 
          except:
              print ('Hello kitchen, get ready to serve!')  
