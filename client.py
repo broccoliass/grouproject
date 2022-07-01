@@ -1,4 +1,5 @@
 import socket
+import sys
 
 FORMAT = "utf-8"
 SIZE = 2048
@@ -34,7 +35,12 @@ while True:
         print('\nLIST ORDER)
         print(Response.decode(FORMAT))
 
+
     elif opt == '2':
+        qty = '0'
+        cSocket.send(str.encode(Input))
+        Response = cScoket.recv(SIZE)
+        print(Response.decode(FORMAT))
         break
 
 cSocket.close()

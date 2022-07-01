@@ -1,5 +1,6 @@
 import socket
 from multiprocessing import Process
+import sys
 
 FORMAT = 'utf-8'
 SIZE = 2048
@@ -33,6 +34,14 @@ def process_start(s_sock):
                 text_file = open("order.txt", "r") 
                 data = text_file.read()
                 text_file.close()
+
+            elif opt[0] == '2':
+                bye = '\nYour order has been sent to the kitchen and ready to serve..\nThank you for your order :)\n'
+                s_sock.send(bye.encode(FORMAT))
+                text_file = open("order.txt", "r")
+                data = text_file.read()
+                text_file.close()
+                print(data)
 
                 s_sock.send(data.encode(FORMAT))
 
