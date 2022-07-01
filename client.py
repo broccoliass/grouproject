@@ -16,6 +16,9 @@ except socket.error as e:
 greet = cSocket.recv(SIZE)
 print (greet.decode(FORMAT))
 
+tab = input("Enter table number: ")
+cSocket.send(str.encode(tab)) 
+
 menu = cSocket.recv(SIZE)
 print(menu.decode(FORMAT))
 
@@ -30,8 +33,9 @@ while True:
         Response = cSocket.recv(SIZE)
         print('\nLIST ORDER)
         print(Response.decode(FORMAT))
+
     elif opt == '2':
-   	break
+        break
 
-
+cSocket.close()
 
