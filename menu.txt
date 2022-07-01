@@ -1,0 +1,18 @@
+=========================================================================================
+                        * *** *** *** MENU LIST *** **** *** *
+=========================================================================================
+
+   -----------------------------------------------------------------------------------
+     | [A]  Nasi Lemak Kukus                    [B]  Soto                           |
+     | [C]  Sizzling                            [D]  Nasi Kerabu                    |
+     | [E]  Nasi Goreng                         [F]  Mi Goreng                      |
+     | [G]  Bakso                               [H]  Lontong                        |
+     | [I]  Western Mixed Platter               [J]  BBQ Chicken Wrap               |
+     | [K]  Fish n Chip                         [L]  Roti Canai                     |
+     | [M]  White Coffee                        [N]  Chocolate                      |
+     | [O]  Double Enriched Chocolate           [P]  White Coffee Hazelnut Freezy   |
+     | [Q]  Milo                                [R]  Mineral Water                  |
+     | [S]  Signature Ice Cream                 [T]  Ice Kacang                     |
+   -----------------------------------------------------------------------------------
+                        "Kepuasan Pelanggan Keutamaan Kami"
+
