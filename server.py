@@ -68,7 +68,6 @@ def process_start(s_sock):
                 s_sock.send(bye.encode(FORMAT))         #send goodbye message
 
             else:
-                else:
                 if opt[0]  == 'A':
                     opt = 'Nasi Lemak Kukus'
                     prc = 5.3
