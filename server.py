@@ -1,6 +1,6 @@
 import socket
-import sys
 import os
+import sys
 from multiprocessing import Process
 
 FORMAT = 'utf-8'
@@ -8,23 +8,23 @@ SIZE = 2048
 
 def process_start(s_sock):
 
-    s_sock.send(str.encode('\n\t\t\tWELCOME TO MAID CAFE\t\t\t\n'))     #send greet
+    s_sock.send(str.encode('\n\t\t\tWELCOME TO MAID CAFE\t\t\t\n')) #send greet
 
     text_file = open("menu.txt", "r")
     data = text_file.read()
     text_file.close()
 
-    num = s_sock.recv(SIZE)              #recv table number
+    num = s_sock.recv(SIZE)             #recv table number
     tab = num.decode(FORMAT)
 
-    s_sock.send(data.encode(FORMAT))     #send menu
-    print('Customer making an order')
+    s_sock.send(data.encode(FORMAT))    #send menu
+    print('Customer making an order\n')
 
     while True:
 
         input = s_sock.recv(SIZE)        #recv option, quantity
         data = input.decode(FORMAT)
-        
+
         try:
             menu, num  = data.split(":")
             opt = str(menu)
@@ -35,28 +35,40 @@ def process_start(s_sock):
                 text_file = open("menu.txt", "r")
                 data = text_file.read()
                 text_file.close()
-                
-                s_sock.send(data.encode(FORMAT))        #send menu 
+
+                s_sock.send(data.encode(FORMAT))        #send menu
 
             elif opt[0] == '2':
-                text_file = open("order.txt", "r") 
-                data = text_file.read()
-                text_file.close()
-              
-                s_sock.send(data.encode(FORMAT))       #send list order
+                if os.path.exists("order.txt"):
+                    text_file = open("order.txt", "r")
+                    data = text_file.read()
+                    text_file.close()
+
+                else:
+                    data = ('You did not order anything yet.')
+
+                s_sock.send(data.encode(FORMAT))        #send list order
 
             elif opt[0] == '3':
-                bye = '\nYour order has been sent to the kitchen and ready to serve..\nThank you for your order :)\n'
-                s_sock.send(bye.encode(FORMAT))        #send goodbye message
+                if os.path.exists("order.txt"):
+                    text_file = open("order.txt", "r")
+                    data = text_file.read()
+                    text_file.close()
 
-                text_file = open("order.txt", "r")
-                data = text_file.read()
-                text_file.close()
+                    print('\nORDER RECEIVED FOR TABLE ' + tab)      #display all order after client exit
+                    print(data)
+                    os.remove("order.txt")                          #remove file for next order when exit
 
-                print('\nORDER RECEIVED FOR TABLE ' + tab)     #display all order after client exit
-                print(data)
-                os.remove("order.txt")                         #remove file for next order when exit
+                    bye = ('\nYour order has been sent to the kitchen and ready to serve..\nThank you for your order :)\n')
+
+                else:
+                    print("Sadly, the customer did not place any orders.\n")
+                    bye = ('\nYou can order later if you change your mind.\n')
+
+                s_sock.send(bye.encode(FORMAT))         #send goodbye message
+
             else:
+                else:
                 if opt[0]  == 'A':
                     opt = 'Nasi Lemak Kukus'
                     prc = 5.3
@@ -136,38 +148,36 @@ def process_start(s_sock):
                 elif opt[0] == 'T':
                     opt = 'Ice Kacang'
                     prc = 4.70
-                    ans = qty * (prc)
+                    ans = qty * (prc)                  
                 else:
                     sendtoCli = ('Sorry, the code is not available in the menu')
 
-                sendtoCli = (str(opt)+ '.... RM'+ str(prc)+ ' ['+ str(qty) + ']: RM' + str(ans))
-                print(sendtoCli)                                 #print for each order
+                sendtoCli = ('\n' + str(opt)+ '.... RM'+ str(prc)+ ' ['+ str(qty) + ']: RM' + str(ans))
+                print(sendtoCli)                            #print for each order
 
                 f = open ('order.txt','a')
                 f.write(str(opt)+ '.... RM'+ str(prc)+ ' ['+ str(qty) + ']: RM' + str(ans) + '\n')
-                f.close()            
-                s_sock.send(str.encode(str(sendtoCli)))          #send each complete order
+                f.close()
+                s_sock.send(str.encode(str(sendtoCli)))     #send each complete order
 
         except:
-            print ('Hello kitchen, get ready to serve!')         #notify the kitchen to serve
+            print (f'[+] {s_addr} Disconnected')    #notify the server the client has been disconnected
             break
-
         if not data:
             break
 
-    f.close()
-    s_sock.close() 
+    s_sock.close()
 
 if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(('',8888))
-    print('Waiting for cutomer')
+    print('Waiting for customer')
     s.listen(3)
     try:
         while True:
             try:
                 s_sock, s_addr = s.accept()
-                print(f'[+] {s_addr} Connected')
+                print(f'\n[+] {s_addr} Connected')
                 p1 = Process(target=process_start, args=(s_sock,))
                 p1.start()
             except socket.error:
@@ -175,10 +185,10 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('\nCtrl + C is pressed, Server Close')
         sys.exit()
-    except Exception as e:        
+    except Exception as e:
         print('an exception occurred!')
         print(e)
         sys.exit(1)
     finally:
-     	s.close()
+        s.close()
 

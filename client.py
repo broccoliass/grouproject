@@ -8,19 +8,19 @@ cSocket = socket.socket()
 host = '192.168.125.3'
 port = 8888
 
-print('Waiting for connection')
+print('Ready to take order')
 try:
         cSocket.connect((host, port))
 except socket.error as e:
         print(str(e))
 
-greet = cSocket.recv(SIZE)               #recv greet
-print (greet.decode(FORMAT))
+greet = cSocket.recv(SIZE)          #recv greet
+print(greet.decode(FORMAT))
 
 tab = input("Enter table number: ")
-cSocket.send(str.encode(tab))            #send table number
+cSocket.send(str.encode(tab))       #send table number
 
-menu = cSocket.recv(SIZE)                #recv menu
+menu = cSocket.recv(SIZE)             #recv menu
 print(menu.decode(FORMAT))
 
 while True:
@@ -36,8 +36,9 @@ while True:
 
         elif opt == '3':
             qty = '0'
-            cSocket.send(str.encode(Input))        #send input to exit and break
-            Response = cScoket.recv(SIZE)          #recv goodbye message
+            Input = opt + ":" + qty
+            cSocket.send(str.encode(Input))     #send input to exit and break
+            Response = cSocket.recv(SIZE)       #recv goodbye message
             print(Response.decode(FORMAT))
             break
 
@@ -46,8 +47,8 @@ while True:
             opt = opt.upper()
 
         Input = opt + ":" + qty
-        cSocket.send(str.encode(Input))            #send input
-        Response = cSocket.recv(SIZE)              #recv response of option 1, 2 and menu order
+        cSocket.send(str.encode(Input))         #send input
+        Response = cSocket.recv(SIZE)           #recv response of option 1, 2 and menu o>
         print(Response.decode(FORMAT))
 
     except KeyboardInterrupt:
